@@ -38,7 +38,7 @@ exports.insert = function(params, callback) {
     // FIRST INSERT THE COMPANY
     var query = 'INSERT INTO company (company_name) VALUES (?)';
 
-
+    var queryData = [params.company_name];
 
     connection.query(query, params.company_name, function(err, result) {
 
@@ -85,12 +85,12 @@ var companyAddressInsert = function(company_id, addressIdArray, callback){
     // TO BULK INSERT RECORDS WE CREATE A MULTIDIMENSIONAL ARRAY OF THE VALUES
     var companyAddressData = [];
     if (addressIdArray.constructor === Array) {
-        for (var i = 0; i < params.address_id.length; i++) {
-            companyAddressData.push([company_id, params.address_id[i]]);
+        for (var i = 0; i < addressIdArray.length; i++) {
+            companyAddressData.push([company_id, addressIdArray[i]]);
         }
     }
     else {
-        companyAddressData.push([company_id, params.address_id]);
+        companyAddressData.push([company_id, addressIdArray]);
     }
     connection.query(query, [companyAddressData], function(err, result){
         callback(err, result);

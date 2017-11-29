@@ -4,9 +4,18 @@ var db  = require('./db_connection.js');
 /* DATABASE CONFIGURATION */
 var connection = mysql.createConnection(db.config);
 
+exports.getAllC = function(callback) {
+
+    var query = 'SELECT * FROM address;';
+
+    connection.query(query, function(err, result) {
+       callback(err, result);
+    });
+};
+
 exports.getAll = () => {
-  return new Promise((resolve, reject) => {
-    let myquery = 'SELECT * FROM address;';
+    return new Promise((resolve, reject) => {
+            let myquery = 'SELECT * FROM address;';
     connection.query(myquery, (err, result) => {
         err ? reject(err) : resolve(result);
     });
