@@ -20,7 +20,7 @@ router.post('/insert', (req, res) => {
 
 router.get('/delete/:id', (req, res) => { //should use methodoverride but.....
   let id = req.params.id;
-  console.log(`${id} is the id`);
+  console.log('${id} is the id');
   account_dal.delete(id)
   .then(setTimeout(() => {res.redirect('/account/all')}, 200))
   .catch(err => console.log(err));
