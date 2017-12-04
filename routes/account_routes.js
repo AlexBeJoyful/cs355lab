@@ -13,12 +13,12 @@ router.get('/all', (req, res) => {
 });
 
 router.post('/insert', (req, res) => {
-  inserts.insert('account', req.body.account) //server is too slow, need set timeout :(
+  inserts.insert('account', req.body.account)
   .then(setTimeout(() => {res.redirect('/account/all')}, 200))
   .catch(err => console.log(err));
 })
 
-router.get('/delete/:id', (req, res) => { //should use methodoverride but.....
+router.get('/delete/:id', (req, res) => {
   let id = req.params.id;
   console.log('${id} is the id');
   account_dal.delete(id)
@@ -31,5 +31,23 @@ router.post('/edit', (req, res) => {
   .then(setTimeout(() => {res.redirect('/account/all')}, 200))
   .catch(err => console.log(err));
 })
+
+// View the company for the given id
+router.get('/', function(req, res){
+    if(req.query.account_id == null) {
+        res.send('account_id is null');
+    }
+    else {
+        account_dal.getById(req.query.account_id, function(err,result) {
+            if (err) {
+                res.send(err);
+            }
+            else {
+                //res.render('company/companyViewById', {'result': result});
+                res.render('account/accountViewById', {'result': result});
+            }
+        });
+    }
+});
 
 module.exports = router;
