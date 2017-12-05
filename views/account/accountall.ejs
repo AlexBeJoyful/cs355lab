@@ -7,7 +7,8 @@
         <h3> Accounts </h3>
         <a href="/account/add">Add New Address</a> <br />
 
-        <table border="1">
+        <div class='container'>
+            <table class='table table-bordered table-hover'>
             <tr><th>Email</th><th>Actions</th></tr>
             <% account.forEach((res) => { %>
             <tr class='active'>
@@ -15,7 +16,8 @@
                 <td><a href='/account/delete/<%=res.account_id %>'>Delete</a></td>
             </tr>
             <% }); %>
-        </table>
+            </table>
+        </div>
         <table class='table table-bordered table-hover'>
           <thead>
             <tr class='active'>
